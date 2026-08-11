@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Cart | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <div class="container">
+
+        <div class="cart-header">
+
+            <div class="cart-subtitle">
+                Your Selection
+            </div>
+
+            <h1 class="cart-title">
+                Shopping Cart
+            </h1>
+
+        </div>
+
+
+        {% if cart_items %}
+
+        <div class="row g-4">
+
+            <!-- CART ITEMS -->
+
+            <div class="col-lg-8">
+
+                {% for item in cart_items %}
+
+                <div class="cart-item">
+
+                    <div class="cart-product-image">
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                        >
+
+                    </div>
+
+
+                    <div class="cart-product-info">
+
+                        <div class="cart-product-category">
+                            {{ item.product.category.name }}
+                        </div>
+
+                        <h3>
+                            {{ item.product.name }}
+                        </h3>
+
+                        <p class="cart-price">
+                            ${{ item.product.price }}
+                        </p>
+
+                        <div class="cart-actions">
+
+                            <form
+                                method="POST"
+                                action="{% url 'update_cart' item.product.id %}"
+                                class="quantity-form"
+                            >
+                        
+                                {% csrf_token %}
+                        
+                                <button
+                                    type="button"
+                                    class="quantity-btn"
+                                    onclick="changeQuantity(this, -1)"
+                                >
+                                    −
+                                </button>
+                        
+                                <input
+                                    type="number"
+                                    name="quantity"
+                                    value="{{ item.quantity }}"
+                                    min="1"
+                                    class="quantity-input"
+                                >
+                        
+                                <button
+                                    type="button"
+                                    class="quantity-btn"
+                                    onclick="changeQuantity(this, 1)"
+                                >
+                                    +
+                                </button>
+                        
+                            </form>
+                        
+                        
+                            <form
+                                method="POST"
+                                action="{% url 'remove_from_cart' item.product.id %}"
+                            >
+                        
+                                {% csrf_token %}
+                        
+                                <button
+                                    type="submit"
+                                    class="remove-btn"
+                                >
+                                    <i class="fa-regular fa-trash-can"></i>
+                                    Remove
+                                </button>
+                        
+                            </form>
+                        
+                        </div>
+
+                    </div>
+
+
+                    <div class="cart-subtotal">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong>
+                            ${{ item.subtotal }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- SUMMARY -->
+
+            <div class="col-lg-4">
+
+                <div class="cart-summary">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Items
+                        </span>
+
+                        <span>
+                            {{ cart_items|length }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            ${{ total }}
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'checkout' %}"
+                        class="checkout-btn"
+                    >
+                        Proceed to Checkout
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+
+                    <a
+                        href="{% url 'shop' %}"
+                        class="continue-shopping"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Continue Shopping
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+        <!-- EMPTY CART -->
+
+        <div class="empty-cart">
+
+            <div class="empty-cart-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+
+            <h2>
+                Your Cart Is Empty
+            </h2>
+
+            <p>
+                Looks like you haven't added anything to your cart yet.
+            </p>
+
+            <a
+                href="{% url 'shop' %}"
+                class="checkout-btn"
+            >
+                Start Shopping
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

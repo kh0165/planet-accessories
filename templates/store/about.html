@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="about-page">
+
+
+<div class="container">
+
+    <!-- Hero -->
+
+    <div class="about-header">
+
+        <div class="about-subtitle">
+            Get To Know Us
+        </div>
+
+        <h1 class="about-title">
+            About Planet Accessories
+        </h1>
+
+        <p class="about-intro">
+            Beautiful accessories, carefully selected
+            to make every moment a little more special.
+        </p>
+
+    </div>
+
+
+    <!-- Story -->
+
+    <div class="row align-items-center g-5 about-story">
+
+        <div class="col-lg-6">
+
+            <div class="about-image">
+
+                <img
+                    src="{% static 'images/home.jpg' %}"
+                    alt="Planet Accessories Collection"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-6">
+
+            <div class="about-content">
+
+                <div class="about-small-title">
+                    Our Story
+                </div>
+
+                <h2>
+                    Accessories That Tell Your Story
+                </h2>
+
+                <p>
+                    At Planet Accessories, we believe that
+                    the right accessory can transform an
+                    everyday look into something truly special.
+                </p>
+
+                <p>
+                    Our collection is carefully selected with
+                    elegance, quality, and timeless style in mind.
+                    From delicate jewelry to beautiful watches,
+                    every piece is chosen to complement your
+                    individual style.
+                </p>
+
+                <a
+                    href="{% url 'shop' %}"
+                    class="about-btn"
+                >
+                    Explore Our Collection
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Values -->
+
+    <div class="about-values">
+
+        <div class="about-section-title">
+
+            <div class="about-subtitle">
+                What We Believe In
+            </div>
+
+            <h2>
+                Our Values
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="about-value-card">
+
+                    <div class="about-value-icon">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+
+                    <h3>
+                        Elegant Design
+                    </h3>
+
+                    <p>
+                        Timeless pieces designed to complement
+                        your style and make every look special.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="about-value-card">
+
+                    <div class="about-value-icon">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+
+                    <h3>
+                        Quality
+                    </h3>
+
+                    <p>
+                        We carefully select beautiful accessories
+                        with quality and lasting beauty in mind.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="about-value-card">
+
+                    <div class="about-value-icon">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+
+                    <h3>
+                        Made For You
+                    </h3>
+
+                    <p>
+                        Every collection is chosen to help you
+                        find something that feels uniquely yours.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+{% endblock %}

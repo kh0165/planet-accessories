@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Us | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-page">
+
+
+<div class="container">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="contact-header">
+
+        <div class="contact-subtitle">
+            We'd Love To Hear From You
+        </div>
+
+        <h1 class="contact-title">
+            Contact Us
+        </h1>
+
+        <p class="contact-description">
+            Have a question, need help, or simply want to say hello?
+            Send us a message and we'll be happy to help.
+        </p>
+
+    </div>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <div class="row g-5">
+
+        <!-- Contact Information -->
+
+        <div class="col-lg-5">
+
+            <div class="contact-info">
+
+                <div class="contact-small-title">
+                    Get In Touch
+                </div>
+
+                <h2>
+                    We're Here For You
+                </h2>
+
+                <p>
+                    Whether you have a question about our products,
+                    your order, or anything else, feel free to contact us.
+                </p>
+
+
+                <!-- Email -->
+
+                <div class="contact-info-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+
+                    <div>
+                        <h4>Email</h4>
+                        <p>info@luna.com</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="contact-info-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-phone"></i>
+                    </div>
+
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+20 100 000 0000</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Location -->
+
+                <div class="contact-info-item">
+
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <h4>Location</h4>
+                        <p>Egypt</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Contact Form -->
+
+        <div class="col-lg-7">
+
+            <div class="contact-form-card">
+
+                <h2>
+                    Send Us A Message
+                </h2>
+
+                <form onsubmit="sendToWhatsApp(event)">
+
+                    {% csrf_token %}
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="contact-label">
+                                Your Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="contact-input"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="contact-label">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="contact-input"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <label class="contact-label">
+                                Subject
+                            </label>
+
+                            <input
+                                type="text"
+                                name="subject"
+                                class="contact-input"
+                                placeholder="What can we help you with?"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <label class="contact-label">
+                                Message
+                            </label>
+
+                            <textarea
+                                name="message"
+                                class="contact-input contact-textarea"
+                                rows="6"
+                                placeholder="Write your message..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <button
+                                type="submit"
+                                class="contact-submit"
+                            >
+                                Send Message
+
+                                <i class="fa-solid fa-paper-plane"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</section>
+
+<script src="{% static 'js/contact.js' %}"></script>
+
+{% endblock %}

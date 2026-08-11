@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Category | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="management-page">
+
+    <div class="container">
+
+        <div class="management-form-card">
+
+            <div class="shop-subtitle">
+                Management
+            </div>
+
+            <h1>
+                Add Category
+            </h1>
+
+            <p>
+                Create a new product category.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="management-field">
+
+                    <label>
+                        Category Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Example: Rings"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label>
+                        Slug
+                    </label>
+
+                    <input
+                        type="text"
+                        name="slug"
+                        placeholder="Example: rings"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="management-form-actions">
+
+                    <a
+                        href="{% url 'manage_categories' %}"
+                        class="back-management-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="management-add-btn"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        Add Category
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

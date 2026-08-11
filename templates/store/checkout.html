@@ -1,0 +1,364 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Checkout | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="checkout-page">
+
+    <div class="container">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="checkout-header">
+
+            <div class="checkout-subtitle">
+                Almost There
+            </div>
+
+            <h1 class="checkout-title">
+                Checkout
+            </h1>
+
+            <p>
+                Please enter your information to confirm your order.
+            </p>
+
+        </div>
+
+
+        <!-- ================= CHECKOUT FORM ================= -->
+
+        <form
+            id="checkout-form"
+            method="POST"
+            action="{% url 'create_order' %}"
+        >
+
+            {% csrf_token %}
+
+            <div class="row g-4">
+
+                <!-- ================= CUSTOMER INFORMATION ================= -->
+
+                <div class="col-lg-7">
+
+                    <div class="checkout-card">
+
+                        <h2>
+                            Customer Information
+                        </h2>
+
+
+                        <!-- Full Name -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="checkout-input"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Phone -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                name="phone"
+                                class="checkout-input"
+                                placeholder="01xxxxxxxxx"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- City -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                City
+                            </label>
+
+                            <input
+                                type="text"
+                                name="city"
+                                class="checkout-input"
+                                placeholder="Enter your city"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Address -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Address
+                            </label>
+
+                            <textarea
+                                name="address"
+                                class="checkout-input"
+                                rows="3"
+                                placeholder="Enter your full address"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- Notes -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Order Notes
+                                <span>(Optional)</span>
+                            </label>
+
+                            <textarea
+                                name="notes"
+                                class="checkout-input"
+                                rows="3"
+                                placeholder="Any special instructions?"
+                            ></textarea>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= ORDER SUMMARY ================= -->
+
+                <div class="col-lg-5">
+
+                    <div class="checkout-summary">
+
+                        <h2>
+                            Your Order
+                        </h2>
+
+
+                        <!-- PRODUCTS -->
+
+                        {% for item in cart_items %}
+
+                        <div class="checkout-product">
+
+                            <div>
+
+                                <h4>
+                                    {{ item.product.name }}
+                                </h4>
+
+                                <span>
+                                    Quantity: {{ item.quantity }}
+                                </span>
+
+                            </div>
+
+                            <strong>
+                                ${{ item.subtotal }}
+                            </strong>
+
+                        </div>
+
+                        {% endfor %}
+
+
+                        <!-- LINE -->
+
+                        <div class="checkout-line"></div>
+
+
+                        <!-- TOTAL -->
+
+                        <div class="checkout-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong>
+                                ${{ total }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- ================= DEPOSIT ================= -->
+
+                        <div class="deposit-box">
+
+                            <div class="deposit-title">
+                                Required Deposit
+                            </div>
+
+                            <div class="deposit-amount">
+                                ${{ deposit }}
+                            </div>
+
+                            <p>
+                                A 50% deposit is required to confirm your order.
+                            </p>
+
+                        </div>
+
+
+                        <!-- ================= WALLET ================= -->
+
+                        <div class="wallet-box">
+
+                            <div class="wallet-icon">
+
+                                <i class="fa-solid fa-wallet"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Cash Wallet
+                                </h4>
+
+                                <p>
+                                    Please transfer the deposit to:
+                                </p>
+
+                                <strong>
+                                    01552798273
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ================= PAYMENT NOTE ================= -->
+
+                        <div class="payment-note">
+
+                            After transferring the deposit,
+                            please confirm below and we will
+                            contact you through WhatsApp.
+
+                        </div>
+
+
+                        <!-- ================= DEPOSIT CONFIRMATION ================= -->
+
+                        <div class="deposit-confirm">
+
+                            <label class="deposit-checkbox">
+
+                                <input
+                                    type="checkbox"
+                                    id="deposit-confirmed"
+                                    name="deposit_confirmed"
+                                >
+
+                                <span>
+                                    I confirm that I have transferred the
+                                    50% deposit to the Cash Wallet.
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- ================= CONFIRM ORDER ================= -->
+
+                        <button
+                            type="submit"
+                            class="confirm-order-btn"
+                        >
+
+                            Confirm Order
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </button>
+
+
+                        <!-- ================= BACK TO CART ================= -->
+
+                        <a
+                            href="{% url 'cart' %}"
+                            class="back-cart"
+                        >
+
+                            <i class="fa-solid fa-arrow-left"></i>
+
+                            Back to Cart
+
+                        </a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ORDER DATA ================= -->
+
+<div
+    id="order-data"
+    data-total="{{ total }}"
+    data-deposit="{{ deposit }}"
+>
+
+    {% for item in cart_items %}
+
+        <div
+            class="order-item-data"
+            data-name="{{ item.product.name }}"
+            data-quantity="{{ item.quantity }}"
+            data-subtotal="{{ item.subtotal }}"
+        ></div>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- ================= CHECKOUT JS ================= -->
+
+<script src="{% static 'js/checkout.js' %}"></script>
+
+{% endblock %}
+

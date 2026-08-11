@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manage Categories | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="management-page">
+
+    <div class="container">
+
+        <div class="management-header">
+
+            <div>
+                <div class="shop-subtitle">
+                    Management
+                </div>
+
+                <h1 class="shop-title">
+                    Categories
+                </h1>
+
+                <p class="shop-description">
+                    Manage the categories used for your products.
+                </p>
+            </div>
+
+            <a
+                href="{% url 'add_category' %}"
+                class="management-add-btn"
+            >
+                <i class="fa-solid fa-plus"></i>
+                Add Category
+            </a>
+
+        </div>
+
+
+        <div class="management-card">
+
+            {% if categories %}
+
+                <div class="table-responsive">
+
+                    <table class="management-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Category</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for category in categories %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ category.name }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ category.slug }}
+                                    </td>
+
+                                    <td>
+
+                                        <div class="management-actions">
+
+                                            <a
+                                                href="{% url 'edit_category' category.id %}"
+                                                class="edit-btn"
+                                            >
+                                                <i class="fa-solid fa-pen"></i>
+                                                Edit
+                                            </a>
+
+                                            <a
+                                                href="{% url 'delete_category' category.id %}"
+                                                class="delete-btn"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                                Delete
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-management">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    <h3>
+                        No Categories Yet
+                    </h3>
+
+                    <p>
+                        Add your first category to get started.
+                    </p>
+
+                    <a
+                        href="{% url 'add_category' %}"
+                        class="management-add-btn"
+                    >
+                        Add Category
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

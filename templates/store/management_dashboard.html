@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Management | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="management-page">
+
+    <div class="container">
+
+        <div class="management-header">
+
+            <div>
+
+                <div class="shop-subtitle">
+                    Planet Accessories
+                </div>
+
+                <h1 class="shop-title">
+                    Management
+                </h1>
+
+                <p class="shop-description">
+                    Manage your products, categories and orders.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'home' %}"
+                class="back-management-btn"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Website
+            </a>
+            <a
+                href="{% url 'logout' %}"
+                class="back-management-btn"
+            >
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+
+        <!-- MANAGEMENT CARDS -->
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCTS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <a
+                    href="{% url 'manage_products' %}"
+                    class="management-menu-card"
+                >
+
+                    <div class="management-menu-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Products
+                        </h2>
+
+                        <p>
+                            {{ products_count }} products
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right menu-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- CATEGORIES -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <a
+                    href="{% url 'manage_categories' %}"
+                    class="management-menu-card"
+                >
+
+                    <div class="management-menu-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Categories
+                        </h2>
+
+                        <p>
+                            {{ categories_count }} categories
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right menu-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+            <!-- ORDERS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <a
+                    href="{% url 'manage_orders' %}"
+                    class="management-menu-card"
+                >
+
+                    <div class="management-menu-icon">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Orders
+                        </h2>
+
+                        <p>
+                            {{ orders_count }} orders
+                        </p>
+
+                    </div>
+
+                    <i class="fa-solid fa-arrow-right menu-arrow"></i>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ORDER STATUS -->
+
+        <div class="management-section">
+
+            <div class="management-section-header">
+
+                <div>
+
+                    <div class="shop-subtitle">
+                        Order Overview
+                    </div>
+
+                    <h2>
+                        Current Orders
+                    </h2>
+
+                </div>
+
+                <a
+                    href="{% url 'manage_orders' %}"
+                    class="management-small-btn"
+                >
+                    View All Orders
+                </a>
+
+            </div>
+
+
+            <div class="row g-3">
+
+
+                <div class="col-md-4">
+
+                    <div class="order-stat-card">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <strong>
+                            {{ pending_orders }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="order-stat-card">
+
+                        <span>
+                            Deposit Paid
+                        </span>
+
+                        <strong>
+                            {{ deposit_paid_orders }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <div class="order-stat-card">
+
+                        <span>
+                            Confirmed
+                        </span>
+
+                        <strong>
+                            {{ confirmed_orders }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

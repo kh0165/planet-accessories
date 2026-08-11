@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="login-page">
+
+    <div class="container">
+
+        <div class="login-wrapper">
+
+            <div class="login-card">
+
+                <div class="shop-subtitle">
+                    Planet Accessories
+                </div>
+
+                <h1>
+                    Management Login
+                </h1>
+
+                <p>
+                    Sign in to manage your products and orders.
+                </p>
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <div class="login-field">
+
+                        <label>
+                            Username
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            required
+                            autofocus
+                        >
+
+                    </div>
+
+
+                    <div class="login-field">
+
+                        <label>
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            required
+                        >
+
+                    </div>
+
+
+                    {% if form.errors %}
+
+                        <div class="login-error">
+                            Username or password is incorrect.
+                        </div>
+
+                    {% endif %}
+
+
+                    <button
+                        type="submit"
+                        class="management-add-btn login-btn"
+                    >
+
+                        Login
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Category | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="management-page">
+
+    <div class="container">
+
+        <div class="delete-card">
+
+            <div class="delete-icon">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+
+            <h1>
+                Delete Category?
+            </h1>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ category.name }}</strong>?
+            </p>
+
+            <p class="delete-warning">
+                Products belonging to this category will also be affected.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="management-form-actions">
+
+                    <a
+                        href="{% url 'manage_categories' %}"
+                        class="back-management-btn"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="delete-confirm-btn"
+                    >
+                        Yes, Delete
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

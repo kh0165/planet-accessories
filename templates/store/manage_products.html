@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manage Products | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="manage-products-page">
+
+    <div class="container">
+
+        <div class="manage-header">
+
+            <div>
+
+                <div class="shop-subtitle">
+                    Product Management
+                </div>
+
+                <h1 class="shop-title">
+                    My Products
+                </h1>
+
+                <p class="shop-description">
+                    Manage your products, prices and stock easily.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'add_product' %}"
+                class="management-add-btn"
+            >
+                <i class="fa-solid fa-plus"></i>
+                Add Product
+            </a>
+
+        </div>
+
+
+        {% if products %}
+
+            <div class="row g-4">
+
+                {% for product in products %}
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+
+                        <div class="management-product-card">
+
+                            <!-- IMAGE -->
+
+                            <div class="management-image-wrapper">
+
+                                {% if product.image %}
+
+                                    <img
+                                        src="{{ product.image.url }}"
+                                        alt="{{ product.name }}"
+                                        class="management-image"
+                                    >
+
+                                {% else %}
+
+                                    <div class="no-product-image">
+                                        <i class="fa-solid fa-image"></i>
+                                    </div>
+
+                                {% endif %}
+
+
+                                {% if product.is_new %}
+
+                                    <span class="management-new-badge">
+                                        New
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- INFO -->
+
+                            <div class="management-product-info">
+
+                                <div class="management-category">
+                                    {{ product.category.name }}
+                                </div>
+
+                                <h3>
+                                    {{ product.name }}
+                                </h3>
+
+                                <div class="management-price">
+                                    ${{ product.price }}
+                                </div>
+
+
+                                <div class="management-stock">
+
+                                    <span>
+                                        Stock
+                                    </span>
+
+                                    <strong>
+                                        {{ product.stock }}
+                                    </strong>
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                {% if product.is_active %}
+
+                                    <div class="management-status active">
+                                        <i class="fa-solid fa-circle"></i>
+                                        Active
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="management-status inactive">
+                                        <i class="fa-solid fa-circle"></i>
+                                        Inactive
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="management-actions">
+
+                                    <a
+                                        href="{% url 'edit_product' product.id %}"
+                                        class="edit-product-btn"
+                                    >
+                                        <i class="fa-solid fa-pen"></i>
+                                        Edit
+                                    </a>
+
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'delete_product' product.id %}"
+                                        onsubmit="return confirm('Are you sure you want to delete this product?');"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="delete-product-btn"
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-products">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <h3>
+                    No Products Yet
+                </h3>
+
+                <p>
+                    Start by adding your first product.
+                </p>
+
+                <a
+                    href="{% url 'add_product' %}"
+                    class="management-add-btn"
+                >
+                    <i class="fa-solid fa-plus"></i>
+                    Add Product
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

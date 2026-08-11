@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Product | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="add-product-page">
+
+    <div class="container">
+
+        <div class="add-product-header">
+
+            <div class="shop-subtitle">
+                Product Management
+            </div>
+
+            <h1 class="shop-title">
+                Add New Product
+            </h1>
+
+            <p>
+                Add a new product to your store.
+            </p>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-7">
+
+                <div class="checkout-card">
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <!-- Product Name -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Product Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                class="checkout-input"
+                                placeholder="Enter product name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Category -->
+
+                        <div class="management-field">
+
+                            <label>
+                                Category
+                            </label>
+                        
+                            <select
+                                name="category"
+                                required
+                            >
+                        
+                                <option value="">
+                                    Select Category
+                                </option>
+                        
+                                {% for category in categories %}
+                        
+                                    <option value="{{ category.id }}">
+                                        {{ category.name }}
+                                    </option>
+                        
+                                {% endfor %}
+                        
+                            </select>
+                        
+                        </div>
+
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Description
+                            </label>
+
+                            <textarea
+                                name="description"
+                                class="checkout-input"
+                                rows="4"
+                                placeholder="Product description"
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- Price -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Price
+                            </label>
+
+                            <input
+                                type="number"
+                                name="price"
+                                class="checkout-input"
+                                step="0.01"
+                                min="0"
+                                placeholder="0.00"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Stock -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Stock
+                            </label>
+
+                            <input
+                                type="number"
+                                name="stock"
+                                class="checkout-input"
+                                min="0"
+                                placeholder="0"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Image -->
+
+                        <div class="mb-3">
+
+                            <label>
+                                Product Image
+                            </label>
+
+                            <input
+                                type="file"
+                                name="image"
+                                class="form-control"
+                                accept="image/*"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- New -->
+
+                        <div class="mb-4">
+
+                            <label>
+
+                                <input
+                                    type="checkbox"
+                                    name="is_new"
+                                >
+
+                                Mark as New Product
+
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="confirm-order-btn"
+                        >
+
+                            Add Product
+
+                            <i class="fa-solid fa-plus"></i>
+
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

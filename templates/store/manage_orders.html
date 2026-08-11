@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manage Orders | Planet Accessories
+{% endblock %}
+
+{% block content %}
+
+<section class="management-page">
+
+    <div class="container">
+
+        <div class="management-header">
+
+            <div>
+
+                <div class="shop-subtitle">
+                    Management
+                </div>
+
+                <h1 class="shop-title">
+                    Orders
+                </h1>
+
+                <p class="shop-description">
+                    View and manage customer orders.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="management-card">
+
+            {% if orders %}
+
+                <div class="table-responsive">
+
+                    <table class="management-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Phone
+                                </th>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    Deposit
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Date
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for order in orders %}
+
+                                <tr>
+
+                                    <td>
+                                        <a
+                                            href="{% url 'order_detail' order.id %}"
+                                            class="order-number"
+                                        >
+                                            #{{ order.id }}
+                                        </a>
+                                    </td>
+
+
+                                    <td>
+                                        {{ order.name }}
+                                    </td>
+
+
+                                    <td>
+                                        {{ order.phone }}
+                                    </td>
+
+
+                                    <td>
+                                        ${{ order.total }}
+                                    </td>
+
+
+                                    <td>
+                                        ${{ order.deposit }}
+                                    </td>
+
+
+                                    <td>
+
+                                        <span class="order-status {{ order.payment_status }}">
+
+                                            {{ order.get_payment_status_display }}
+
+                                        </span>
+
+                                    </td>
+
+
+                                    <td>
+                                        {{ order.created_at|date:"d M Y" }}
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-management">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <h3>
+                        No Orders Yet
+                    </h3>
+
+                    <p>
+                        Customer orders will appear here.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
