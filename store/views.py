@@ -377,16 +377,34 @@ def order_success(request):
     message += f"City: {order.city}\n"
     message += f"Address: {order.address}\n\n"
 
-    message += "Products:\n"
+    # =========================
+    # PRODUCTS
+    # =========================
+
+    message += "Products:\n\n"
 
     for item in order.items.all():
 
-        message += (
-            f"- {item.product.name} "
-            f"x {item.quantity} = ${item.subtotal}\n"
-        )
+        if item.product.image:
 
-    message += "\n"
+            image_url = request.build_absolute_uri(
+                item.product.image.url
+            )
+
+            message += (
+                f"📷 Product Image:\n"
+                f"{image_url}\n"
+                f"Quantity: {item.quantity}\n"
+                f"Subtotal: ${item.subtotal}\n\n"
+            )
+
+        else:
+
+            message += (
+                f"Product: {item.product.name}\n"
+                f"Quantity: {item.quantity}\n"
+                f"Subtotal: ${item.subtotal}\n\n"
+            )
 
     message += f"Total: ${order.total}\n"
     message += f"50% Deposit: ${order.deposit}\n"
