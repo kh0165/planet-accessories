@@ -1,0 +1,21 @@
+# Render Blueprint — lets you create the web service automatically.
+# In Render: New + -> Blueprint -> pick this repo. Then set the secret
+# environment variables (DATABASE_URL) that are marked sync: false below.
+services:
+  - type: web
+    name: planet-accessories
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: SECRET_KEY
+        generateValue: true      # Render generates a strong random value
+      - key: DEBUG
+        value: "False"
+      - key: WEB_CONCURRENCY
+        value: "2"
+      - key: DATABASE_URL
+        sync: false              # paste your Neon connection string in the dashboard

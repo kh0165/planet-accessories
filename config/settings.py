@@ -12,15 +12,29 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tb(=3t%ydo5+=u+wg)vo!585-n9l(277arl^1uj2(8)29y#6+a'
+SECRET_KEY = os.getenv(
+    'SECRET_KEY',
+    'django-insecure-tb(=3t%ydo5+=u+wg)vo!585-n9l(277arl^1uj2(8)29y#6+a'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.getenv(
-    'ALLOWED_HOSTS',
-    '127.0.0.1,localhost'
-).split(',')
+ALLOWED_HOSTS = [
+    h for h in os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',') if h
+]
+
+# Render provides RENDER_EXTERNAL_HOSTNAME automatically; trust it if present.
+RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# CSRF trusted origins are required for admin/login to work over HTTPS.
+CSRF_TRUSTED_ORIGINS = [
+    o for o in os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if o
+]
+if RENDER_EXTERNAL_HOSTNAME:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
 
 
 # Application definition
@@ -32,11 +46,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Cloudinary (used for persistent media storage when CLOUDINARY_URL is set).
+    'cloudinary_storage',
+    'cloudinary',
     'store',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise serves static files in production (right after SecurityMiddleware).
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,7 +89,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 USE_SQLITE = os.getenv('USE_SQLITE', 'False') == 'True'
 
-if USE_SQLITE:
+# Preferred in production: a single DATABASE_URL connection string
+# (this is what Neon / most managed Postgres providers give you).
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+elif USE_SQLITE:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -132,6 +165,33 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# WhiteNoise compresses static files and serves them efficiently in production.
+# Media (uploaded product images): if CLOUDINARY_URL is set we store them on
+# Cloudinary's CDN so they survive restarts/redeploys on ephemeral free hosts;
+# otherwise they fall back to the local filesystem (fine for local dev).
+CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+
+if CLOUDINARY_URL:
+    _default_storage = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    _default_storage = 'django.core.files.storage.FileSystemStorage'
+
+STORAGES = {
+    'default': {
+        'BACKEND': _default_storage,
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
+    },
+}
+
+# Behind Render's HTTPS proxy: honor the forwarded protocol and secure cookies.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
