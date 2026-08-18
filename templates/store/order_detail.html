@@ -152,7 +152,7 @@ Order #{{ order.id }} | Planet Accessories
                         </span>
 
                         <strong>
-                            ${{ order.total }}
+                            EGP{{ order.total }}
                         </strong>
 
                     </div>
@@ -165,7 +165,7 @@ Order #{{ order.id }} | Planet Accessories
                         </span>
 
                         <strong>
-                            ${{ order.deposit }}
+                            EGP{{ order.deposit }}
                         </strong>
 
                     </div>
@@ -176,69 +176,69 @@ Order #{{ order.id }} | Planet Accessories
                         <span>
                             Status
                         </span>
-                    
+
                         <span class="order-status {{ order.payment_status }}">
                             {{ order.get_payment_status_display }}
                         </span>
-                    
+
                     </div>
-                    
-                    
+
+
                     <form
                         method="POST"
                         action="{% url 'update_order_status' order.id %}"
                         class="status-form"
                     >
-                    
+
                         {% csrf_token %}
-                    
+
                         <label>
                             Update Order Status
                         </label>
-                    
+
                         <select
                             name="payment_status"
                             class="status-select"
                         >
-                    
+
                             <option
                                 value="pending"
                                 {% if order.payment_status == 'pending' %}selected{% endif %}
                             >
                                 Pending
                             </option>
-                    
+
                             <option
                                 value="deposit_paid"
                                 {% if order.payment_status == 'deposit_paid' %}selected{% endif %}
                             >
                                 Deposit Paid
                             </option>
-                    
+
                             <option
                                 value="confirmed"
                                 {% if order.payment_status == 'confirmed' %}selected{% endif %}
                             >
                                 Confirmed
                             </option>
-                    
+
                             <option
                                 value="cancelled"
                                 {% if order.payment_status == 'cancelled' %}selected{% endif %}
                             >
                                 Cancelled
                             </option>
-                    
+
                         </select>
-                    
-                    
+
+
                         <button
                             type="submit"
                             class="update-status-btn"
                         >
                             Update Status
                         </button>
-                    
+
                     </form>
 
                 </div>
@@ -277,7 +277,7 @@ Order #{{ order.id }} | Planet Accessories
 
                             <div class="order-product-price">
 
-                                ${{ item.subtotal }}
+                                EGP{{ item.subtotal }}
 
                             </div>
 
@@ -299,7 +299,7 @@ Order #{{ order.id }} | Planet Accessories
                         </span>
 
                         <strong>
-                            ${{ order.total }}
+                            EGP{{ order.total }}
                         </strong>
 
                     </div>

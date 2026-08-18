@@ -7,7 +7,7 @@ function sendToWhatsApp(event) {
     const subject = document.querySelector('[name="subject"]').value;
     const message = document.querySelector('[name="message"]').value;
 
-    const whatsappNumber = "201552798273";
+    const whatsappNumber = "201154924126";
 
     const text =
         "Hello Planet Accessories 👋\n\n" +

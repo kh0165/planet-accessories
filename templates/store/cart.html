@@ -57,7 +57,7 @@ Cart | Planet Accessories
                         </h3>
 
                         <p class="cart-price">
-                            ${{ item.product.price }}
+                            EGP{{ item.product.price }}
                         </p>
 
                         <div class="cart-actions">
@@ -67,9 +67,9 @@ Cart | Planet Accessories
                                 action="{% url 'update_cart' item.product.id %}"
                                 class="quantity-form"
                             >
-                        
+
                                 {% csrf_token %}
-                        
+
                                 <button
                                     type="button"
                                     class="quantity-btn"
@@ -77,7 +77,7 @@ Cart | Planet Accessories
                                 >
                                     −
                                 </button>
-                        
+
                                 <input
                                     type="number"
                                     name="quantity"
@@ -85,7 +85,7 @@ Cart | Planet Accessories
                                     min="1"
                                     class="quantity-input"
                                 >
-                        
+
                                 <button
                                     type="button"
                                     class="quantity-btn"
@@ -93,17 +93,17 @@ Cart | Planet Accessories
                                 >
                                     +
                                 </button>
-                        
+
                             </form>
-                        
-                        
+
+
                             <form
                                 method="POST"
                                 action="{% url 'remove_from_cart' item.product.id %}"
                             >
-                        
+
                                 {% csrf_token %}
-                        
+
                                 <button
                                     type="submit"
                                     class="remove-btn"
@@ -111,9 +111,9 @@ Cart | Planet Accessories
                                     <i class="fa-regular fa-trash-can"></i>
                                     Remove
                                 </button>
-                        
+
                             </form>
-                        
+
                         </div>
 
                     </div>
@@ -126,7 +126,7 @@ Cart | Planet Accessories
                         </span>
 
                         <strong>
-                            ${{ item.subtotal }}
+                            EGP{{ item.subtotal }}
                         </strong>
 
                     </div>
@@ -172,7 +172,7 @@ Cart | Planet Accessories
                         </span>
 
                         <strong>
-                            ${{ total }}
+                            EGP{{ total }}
                         </strong>
 
                     </div>

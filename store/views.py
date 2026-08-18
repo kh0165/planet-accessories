@@ -413,7 +413,7 @@ def order_success(request):
     if order.notes:
         message += f"\n\nOrder Notes: {order.notes}"
 
-    whatsapp_number = "201552798273"
+    whatsapp_number = "201154924126"
 
     whatsapp_url = (
         f"https://wa.me/{whatsapp_number}"
@@ -783,6 +783,30 @@ def update_order_status(request, order_id):
             'order_detail',
             order_id=order.id
         )
+
+    return redirect(
+        'order_detail',
+        order_id=order.id
+    )
+
+@login_required
+def delete_order(request, order_id):
+
+    order = get_object_or_404(
+        Order,
+        id=order_id
+    )
+
+    if request.method == 'POST':
+
+        order.delete()
+
+        messages.success(
+            request,
+            f'Order #{order_id} deleted successfully.'
+        )
+
+        return redirect('manage_orders')
 
     return redirect(
         'order_detail',

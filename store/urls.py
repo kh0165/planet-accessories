@@ -1,4 +1,4 @@
-from django.urls import path 
+from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -111,6 +111,11 @@ urlpatterns = [
         'products/manage/orders/<int:order_id>/status/',
         views.update_order_status,
         name='update_order_status'
+    ),
+    path(
+        'orders/<int:order_id>/delete/',
+        views.delete_order,
+        name='delete_order'
     ),
     path(
         'management/',

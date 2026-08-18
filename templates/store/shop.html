@@ -43,18 +43,18 @@ Shop | Planet Accessories
             >
                 All
             </a>
-        
+
             {% for category in categories %}
-        
+
                 <a
                     href="{% url 'shop' %}?category={{ category.slug }}"
                     class="category-btn {% if selected_category == category.slug %}active{% endif %}"
                 >
                     {{ category.name }}
                 </a>
-        
+
             {% endfor %}
-        
+
         </div>
 
 
@@ -67,40 +67,40 @@ Shop | Planet Accessories
                     value="{{ selected_category }}"
                 >
             {% endif %}
-        
+
             <select
                 name="sort"
                 class="sort-select"
                 onchange="this.form.submit()"
             >
-        
+
                 <option value="">
                     Sort By
                 </option>
-        
+
                 <option
                     value="newest"
                     {% if selected_sort == 'newest' %}selected{% endif %}
                 >
                     Newest
                 </option>
-        
+
                 <option
                     value="price_low"
                     {% if selected_sort == 'price_low' %}selected{% endif %}
                 >
                     Price: Low to High
                 </option>
-        
+
                 <option
                     value="price_high"
                     {% if selected_sort == 'price_high' %}selected{% endif %}
                 >
                     Price: High to Low
                 </option>
-        
+
             </select>
-        
+
         </form>
 
     </div>
@@ -111,31 +111,31 @@ Shop | Planet Accessories
 
 
         {% for m in products %}
-        
+
             <div class="col-6 col-lg-3">
-        
+
                 <div class="product-card">
-        
+
                     <img
                         src="{{ m.image.url }}"
                         alt="{{ m.name }}"
                         class="product-image"
                     >
-        
+
                     <div class="product-info">
-        
+
                         <div class="product-category">
                             {{ m.category.name }}
                         </div>
-        
+
                         <h3 class="product-name">
                             {{ m.name }}
                         </h3>
-        
+
                         <div class="product-price">
-                            ${{ m.price }}
+                            EGP{{ m.price }}
                         </div>
-        
+
                         <a
                             href="{% url 'add_to_cart' m.id %}"
                             class="add-cart-btn"
@@ -143,23 +143,23 @@ Shop | Planet Accessories
                             <i class="fa-solid fa-bag-shopping"></i>
                             Add to Cart
                         </a>
-        
+
                     </div>
-        
+
                 </div>
-        
+
             </div>
-        
+
         {% empty %}
-        
+
             <div class="col-12 text-center">
                 <p>No products available yet.</p>
             </div>
-        
+
         {% endfor %}
 
-        
+
         </div>
-        
+
 </section>
 {% endblock %}
